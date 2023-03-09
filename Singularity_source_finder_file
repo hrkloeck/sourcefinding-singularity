@@ -1,0 +1,56 @@
+#
+# HRK 2023 just runs with Jonah's source finding stuff
+#
+#
+
+# e.g. how to run it
+# singularity exec --bind ${PWD},${PWD}/Image-processing-main:/DOIT sf_hrk.simg python /DOIT/sourcefinding.py catalog SINGLE_SPW_MFS_pbcorr_jonah_new.fits -o fits:srl kvis --plot --survey MALS
+#
+
+Bootstrap: docker
+From: ubuntu:20.04
+
+%files
+    sf_requirements.txt  /
+
+
+%environment
+    export DEBIAN_FRONTEND=noninteractive
+
+%post
+
+    apt-get update \
+    	    && DEBIAN_FRONTEND=noninteractive apt-get --yes install --no-install-recommends tzdata \
+    	    && apt-get --yes install --no-install-recommends \
+	    ca-certificates \
+	    wget \
+	    python-is-python3 \
+	    build-essential \
+	    gfortran \
+	    g++ \
+	    libncurses5-dev \
+	    libreadline-dev \
+	    python3-pip \
+	    python3-dev \
+	    python3-setuptools \
+	    libblas-dev \
+	    liblapacke-dev \
+	    libcfitsio-dev \
+	    wcslib-dev \
+	    libfftw3-dev \
+	    cmake \
+	    flex \
+	    bison \
+	    libboost-numpy-dev \
+	    libboost-python-dev \
+	    git \
+	    default-jre \
+	    default-jdk \
+	    pip
+
+
+    pip install --upgrade pip
+    pip install --no-cache-dir  -r /sf_requirements.txt
+
+
+    

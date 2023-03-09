@@ -1,0 +1,9 @@
+astropy
+numpy
+matplotlib
+scipy
+shapely
+numpyencoder
+git+https://github.com/astropy/regions.git
+bdsf
+python-casacore
